@@ -11,7 +11,7 @@
             "_salary": "500000",
             "_startDate": "29 Oct 2019",
             "_note": "All In One",
-            "_profilePic": "../ph4.png"
+            "_profilePic": "D:/Testing/ph4.png"
         },
         {
             "id": 2,
@@ -23,7 +23,7 @@
             "_salary": "500000",
             "_startDate": "29 Oct 2019",
             "_note": "Terrific Engineer",
-            "_profilePic": "ph5.png"
+            "_profilePic": "D:/Testing/ph5.png"
         },
         {
             "id": 3,
@@ -34,8 +34,8 @@
             ],
             "_salary": "400000",
             "_startDate": "29 Oct 2019",
-            "_note": "",
-            "_profilePic": "../ph1.png"
+            "_note": "Good",
+            "_profilePic": "D:/Testing/ph1.png"
         }
     ]
 }
