@@ -73,29 +73,28 @@ const createInnerHtml = () => {
 const createEmployeePayrollJSON = () => {
     let empPayrollListLocal = [
         {
-            _name: 'Akash',
-            _gender: 'male',
+            _name: 'Rahul',
+            _gender: 'Male',
             _department: [
-                'Engineering',
-                'Finance'
+                'Engineering'
+            ],
+            _salary: '450000',
+            _startDate: '29 Oct 2019',
+            _note: '',
+            id: new Date().getTime(),
+            _profilePic: 'D:/Testing/ph4.png'
+        },
+        {
+            _name: 'Ganesh',
+            _gender: 'Female',
+            _department: [
+                'Sales'
             ],
             _salary: '500000',
             _startDate: '29 Oct 2019',
             _note: '',
-            id: new Date().getTime(),
-            _profilePic: '../assets/profile-images/Ellipse -2.png'
-        },
-        {
-            _name: 'Kumar',
-            _gender: 'female',
-            _department: [
-                'Sales'
-            ],
-            _salary: '400000',
-            _startDate: '29 Oct 2019',
-            _note: '',
             id: new Date().getTime() + 1,
-            _profilePic: '../assets/profile-images/Ellipse -1.png'
+            _profilePic: 'D:/Testing/ph5.png'
         }
     ];
     return empPayrollListLocal;
@@ -123,11 +122,24 @@ const remove = (node) => {
     const index = empPayrollList.map(empData => empData.id).indexOf(empPayrollData.id);
     //using splice to remove element from array
     empPayrollList.splice(index, 1);
-    //updating the data into local storage
-    localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
-    //updating the count of employees here, otherwise refresh will be required to update count
-    //refresh slows the code, hence update of count is done here only.
-    document.querySelector(".emp-count").textContent = empPayrollList.length;
+    if (site_properties.use_local_storage.match("true")) {
+        //updating the data into local storage
+        localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
+        //updating the count of employees here, otherwise refresh will be required to update count
+        //refresh slows the code, hence update of count is done here only.
+        document.querySelector(".emp-count").textContent = empPayrollList.length;
+    }
+    else {
+        const deleteURL = site_properties.server_url + empPayrollData.id.toString();
+        makeServiceCall("DELETE", deleteURL, false)
+            .then(responseText => {
+                document.querySelector(".emp-count").textContent = empPayrollList.length;
+                createInnerHtml();
+            })
+            .catch(error => {
+                console.log("DELETE Error status: " + JSON.stringify(error));
+            })
+    }
     //showing updated data of local storage
     createInnerHtml();
 }
